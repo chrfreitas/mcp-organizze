@@ -7,16 +7,11 @@ export const registerGetTransactions = (server: McpServer) => {
     "get_transactions",
     "List transactions of a given month and optional account",
     {
-      year: z.string().length(4).regex(/^\d{4}$/).describe("Four-digit year (e.g. '2025')"),
-      month: z.string().length(2).regex(/^(0[1-9]|1[0-2])$/).describe("Two-digit month (e.g. '01' for January, '12' for December)"),
+      start_date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).describe("Start date in 'YYYY-MM-DD' format (e.g. '2025-01-01')"),
+      end_date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).describe("End date in 'YYYY-MM-DD' format (e.g. '2025-01-31')"),
       account_id: z.string().optional().describe("Account ID to filter transactions (optional)"),
     },
-    async ({ year, month, account_id }) => {
-      const start_date = `${year}-${month}-01`;
-      const end_date = new Date(Number(year), Number(month), 0)
-        .toISOString()
-        .split("T")[0];
-
+    async ({ start_date, end_date, account_id }) => {
       const query = new URLSearchParams({ start_date, end_date });
       if (account_id) {
         query.append("account_id", account_id);
@@ -41,7 +36,7 @@ export const registerGetTransactions = (server: McpServer) => {
           content: [
             {
               type: "text",
-              text: `No transactions found for ${month}/${year}.`,
+              text: `No transactions found for ${start_date}/${end_date}.`,
             },
           ],
         };
