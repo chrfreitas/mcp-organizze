@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc && chmod 755 build/index.js",
-     "debug": "npx -y @modelcontextprotocol/inspector node index.js"
+    "debug": "npx -y @modelcontextprotocol/inspector node index.js"
   },
   "repository": {
     "type": "git",
