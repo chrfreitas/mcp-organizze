@@ -2,6 +2,8 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import z from "zod";
 
+import { Account } from "./types.js";
+
 const ORGANIZZE_API_BASE = "https://api.organizze.com.br/rest/v2";
 
 const server = new McpServer({
@@ -40,17 +42,6 @@ async function makeRequest<Account>(url: string) {
   }
 }
 
-interface Account {
-  id: number;
-  name: string;
-  description: string;
-  archived: boolean;
-  institution_id: string;
-  created_at: string; 
-  updated_at: string;
-  default: boolean;
-  type: string; 
-}
 
 const formatData = (account: Account) => {
   return `ID:${account.id}, Name: ${account.name}, Description: ${account.description}, InstitutionID: ${account.institution_id}`
