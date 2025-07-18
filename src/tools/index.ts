@@ -1,6 +1,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { registerGetCategories } from "./get_categories.js";
 import { registerGetGoals } from "./get_goals.js";
+import { registerGetTransactionDetails } from "./get_transaction_details.js";
 import { registerGetTransactions } from "./get_transactions.js";
 import { registerListAccount } from "./list_accounts.js";
 import { registerListCreditCardInvoices } from "./list_credit_card_invoices.js";
@@ -13,4 +14,5 @@ export function registerTools(server: McpServer) {
   registerGetTransactions(server);
   registerListCreditCards(server);
   registerListCreditCardInvoices(server);
+  registerGetTransactionDetails(server);
 }
